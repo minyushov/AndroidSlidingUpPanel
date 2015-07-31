@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -13,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -45,56 +50,13 @@ public class DemoActivity extends ActionBarActivity {
 
         setSupportActionBar((Toolbar) findViewById(R.id.main_toolbar));
 
-        ListView lv = (ListView) findViewById(R.id.list);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(DemoActivity.this, "onItemClick", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        List<String> your_array_list = Arrays.asList(
-                "This",
-                "Is",
-                "An",
-                "Example",
-                "ListView",
-                "That",
-                "You",
-                "Can",
-                "Scroll",
-                ".",
-                "It",
-                "Shows",
-                "How",
-                "Any",
-                "Scrollable",
-                "View",
-                "Can",
-                "Be",
-                "Included",
-                "As",
-                "A",
-                "Child",
-                "Of",
-                "SlidingUpPanelLayout"
-        );
-
-        // This is the array adapter, it takes the context of the activity as a
-        // first parameter, the type of list view as a second parameter and your
-        // array as a third parameter.
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                this,
-                android.R.layout.simple_list_item_1,
-                your_array_list );
-
-        lv.setAdapter(arrayAdapter);
-
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.viewPager);
         mLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         mFabLayout = (FloatingActionButtonLayout) findViewById(R.id.fab_layout);
         mFAB = findViewById(R.id.fab);
         //mTitleLayout = (LinearLayout) findViewById(R.id.titlebar);
         //final ArgbEvaluator colorEvaluator = new ArgbEvaluator();
+        mViewPager.setAdapter(new ScreenSlidePagerAdapter(getSupportFragmentManager(), mLayout));
         mLayout.setPanelSlideListener(new PanelSlideListener() {
             @Override
             public void onPanelSlide(View panel, float slideOffset) {
@@ -144,34 +106,20 @@ public class DemoActivity extends ActionBarActivity {
                 Log.i(TAG, "onPanelCollapsedStateY" + (reached ? "reached" : "left"));
                 LinearLayout titleBar = (LinearLayout) findViewById(R.id.titlebar);
                 if (reached) {
-                    titleBar.setBackgroundColor(Color.WHITE);
+                    //titleBar.setBackgroundColor(Color.WHITE);
                 } else {
-                    titleBar.setBackgroundColor(Color.parseColor("#ffff9431"));
+                    //titleBar.setBackgroundColor(Color.parseColor("#ffff9431"));
                 }
             }
 
             @Override
             public void onPanelLayout(View panel, SlidingUpPanelLayout.PanelState state) {
                 LinearLayout titleBar = (LinearLayout) findViewById(R.id.titlebar);
-                if(state == SlidingUpPanelLayout.PanelState.COLLAPSED){
-                    titleBar.setBackgroundColor(Color.WHITE);
-                } else if (state == SlidingUpPanelLayout.PanelState.EXPANDED || state == SlidingUpPanelLayout.PanelState.ANCHORED){
-                    titleBar.setBackgroundColor(Color.parseColor("#ffff9431"));
+                if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                    //titleBar.setBackgroundColor(Color.WHITE);
+                } else if (state == SlidingUpPanelLayout.PanelState.EXPANDED || state == SlidingUpPanelLayout.PanelState.ANCHORED) {
+                    //titleBar.setBackgroundColor(Color.parseColor("#ffff9431"));
                 }
-            }
-        });
-
-        TextView t = (TextView) findViewById(R.id.name);
-        t.setText(Html.fromHtml(getString(R.string.hello)));
-        Button f = (Button) findViewById(R.id.follow);
-        f.setText(Html.fromHtml(getString(R.string.follow)));
-        f.setMovementMethod(LinkMovementMethod.getInstance());
-        f.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("http://www.twitter.com/umanoapp"));
-                startActivity(i);
             }
         });
     }
@@ -214,7 +162,7 @@ public class DemoActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_toggle: {
                 if (mLayout != null) {
                     if (mLayout.getPanelState() != PanelState.HIDDEN) {
@@ -276,6 +224,46 @@ public class DemoActivity extends ActionBarActivity {
             mLayout.setPanelState(PanelState.COLLAPSED);
         } else {
             super.onBackPressed();
+        }
+    }
+
+    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+        private SlidingUpPanelLayout mSlidingUpPanelLayout;
+
+        public ScreenSlidePagerAdapter(FragmentManager fm, SlidingUpPanelLayout supl) {
+            super(fm);
+            mSlidingUpPanelLayout = supl;
+        }
+
+        @Override
+        public void setPrimaryItem(ViewGroup container, int position, Object item) {
+            super.setPrimaryItem(container, position, item);
+            if (item instanceof Fragment) {
+                View primaryView = ((Fragment) item).getView();
+                if (primaryView != null) {
+                    mSlidingUpPanelLayout.setScrollableView(primaryView.findViewById(R.id.scrollableView));
+                    mSlidingUpPanelLayout.setDragView(primaryView.findViewById(R.id.dragView));
+                }
+            }
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return new ScrollViewFragment();
+                case 1:
+                    return new ListViewFragment();
+                case 2:
+                    return new RecyclerViewFragment();
+                default:
+                    return null;
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return 3;
         }
     }
 }
