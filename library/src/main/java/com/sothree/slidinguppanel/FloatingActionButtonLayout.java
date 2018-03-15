@@ -2,8 +2,6 @@ package com.sothree.slidinguppanel;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -102,9 +100,9 @@ public class FloatingActionButtonLayout extends ViewGroup {
             int fabRight;
             int fabLeft;
             int horizontalGravity = lp.gravity & Gravity.HORIZONTAL_GRAVITY_MASK;
-            horizontalGravity = GravityCompat.getAbsoluteGravity(horizontalGravity, ViewCompat.getLayoutDirection(this));
+            horizontalGravity = Gravity.getAbsoluteGravity(horizontalGravity, getLayoutDirection());
             switch (horizontalGravity) {
-                case Gravity.LEFT:
+                case Gravity.START:
                     fabLeft = l + lp.leftMargin;
                     fabRight = fabLeft + mFloatingActionButton.getMeasuredWidth();
                     break;
