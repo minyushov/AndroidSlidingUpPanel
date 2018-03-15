@@ -90,19 +90,21 @@ dependencies {
 Android Sliding Up Panel - Orginal Readme
 ==========================================
 
-This library provides a simple way to add a draggable sliding up panel (popularized by Google Music, Google Maps and Rdio) to your Android application. Umano Team <3 Open Source.
+This library provides a simple way to add a draggable sliding up panel (popularized by Google Music and Google Maps) to your Android application.
 
 As seen in Umano Android App (now acquired by Dropbox):
 
 ![SlidingUpPanelLayout](https://raw.github.com/umano/AndroidSlidingUpPanelDemo/master/slidinguppanel.png)
 
-### Importing the library
+### Known Uses in Popular Apps
 
-#### Eclipse 
+* [Soundcloud] (https://play.google.com/store/apps/details?id=com.soundcloud.android)
+* [Dropbox Paper] (https://play.google.com/store/apps/details?id=com.dropbox.paper)
+* [Snaptee] (https://play.google.com/store/apps/details?id=co.snaptee.android)
 
-Download the [latest release](https://github.com/umano/AndroidSlidingUpPanel/releases) and include the `library` project as a dependency in Eclipse.
+If you are using the library and you would like to have your app listed, simply let us know.
 
-#### Android Studio 
+### Importing the Library
 
 Simply add the following dependency to your `build.gradle` file to use the latest version:
 
@@ -111,7 +113,7 @@ dependencies {
     repositories {
         mavenCentral()
     }
-    compile 'com.sothree.slidinguppanel:library:3.2.1'
+    compile 'com.sothree.slidinguppanel:library:3.4.0'
 }
 ```
 
@@ -223,6 +225,16 @@ If you have an awesome pull request, send it over!
 
 ### Changelog
 
+* 3.4.0
+  * Use the latest support library 26 and update the min version to 14.
+  * Bug fixes
+* 3.3.1
+  * Lots of bug fixes from various pull requests.
+  * Removed the nineoldandroids dependency. Use ViewCompat instead.
+* 3.3.0
+  * You can now set a `FadeOnClickListener`, for when the faded area of the main content is clicked.
+  * `PanelSlideListener` has a new format (multiple of them can be set now
+  * Fixed the setTouchEnabled bug
 * 3.2.1
   * Add support for `umanoScrollInterpolator`
   * Add support for percentage-based sliding panel height using `layout_weight` attribute
@@ -243,13 +255,6 @@ If you have an awesome pull request, send it over!
 * 2.0.1 - Bug fixes. 
 * 2.0.0 - Cleaned up various public method calls. Added animated `showPanel`/`hidePanel` methods. 
 * 1.0.1 - Initial Release 
-
-### Known Users
-
-* [Soundcloud Android App] (https://play.google.com/store/apps/details?id=com.soundcloud.android)
-* Umano Android App (Acquired by Dropbox)
-
-If you are using the library and you would like to have your app listed, simply send us a pull request.
 
 ### Licence
 
