@@ -18,7 +18,6 @@
 package com.sothree.slidinguppanel;
 
 import android.content.Context;
-import android.os.Build;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.VelocityTrackerCompat;
 import android.support.v4.view.ViewCompat;
@@ -33,10 +32,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
 
-import com.nineoldandroids.view.ViewHelper;
-import com.sothree.slidinguppanel.library.R;
-
 import java.util.Arrays;
+
+import com.sothree.slidinguppanel.library.R;
 
 /**
  * ViewDragHelper is a utility class for writing custom ViewGroups. It offers a number
@@ -1722,11 +1720,7 @@ public class ViewDragHelper {
     }
 
     protected void setFloatingActionButtonAlpha(float alpha){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            mFloatingActionButton.setAlpha(alpha);
-        } else {
-            ViewHelper.setAlpha(mFloatingActionButton, alpha);
-        }
+        mFloatingActionButton.setAlpha(alpha);
         int visibility = mFloatingActionButton.getVisibility();
         if (alpha == 0f){
             if (visibility != View.INVISIBLE){

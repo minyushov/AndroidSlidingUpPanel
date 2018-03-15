@@ -22,10 +22,10 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
 
-import com.sothree.slidinguppanel.library.R;
-
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import com.sothree.slidinguppanel.library.R;
 
 public class SlidingUpPanelLayout extends ViewGroup {
 
@@ -764,36 +764,46 @@ public class SlidingUpPanelLayout extends ViewGroup {
     }
 
     void dispatchOnPanelHiddenExecuted(View panel, Interpolator interpolator, int duration) {
-        if (mPanelSlideListener != null) {
-            mPanelSlideListener.onPanelHiddenExecuted(panel, interpolator, duration);
+        synchronized (mPanelSlideListeners) {
+            for (PanelSlideListener l : mPanelSlideListeners) {
+                l.onPanelHiddenExecuted(panel, interpolator, duration);
+            }
         }
         sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
     }
 
     void dispatchOnPanelShownExecuted(View panel, Interpolator interpolator, int duration) {
-        if (mPanelSlideListener != null) {
-            mPanelSlideListener.onPanelShownExecuted(panel, interpolator, duration);
+        synchronized (mPanelSlideListeners) {
+            for (PanelSlideListener l : mPanelSlideListeners) {
+                l.onPanelShownExecuted(panel, interpolator, duration);
+            }
         }
         sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
     }
 
     void dispatchOnPanelExpandedStateY(View panel, boolean reached) {
-        if (mPanelSlideListener != null) {
-            mPanelSlideListener.onPanelExpandedStateY(panel, reached);
+        synchronized (mPanelSlideListeners) {
+            for (PanelSlideListener l : mPanelSlideListeners) {
+                l.onPanelExpandedStateY(panel, reached);
+            }
         }
         sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
     }
 
     void dispatchOnPanelCollapsedStateY(View panel, boolean reached) {
-        if (mPanelSlideListener != null) {
-            mPanelSlideListener.onPanelCollapsedStateY(panel, reached);
+        synchronized (mPanelSlideListeners) {
+            for (PanelSlideListener l : mPanelSlideListeners) {
+                l.onPanelCollapsedStateY(panel, reached);
+            }
         }
         sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
     }
 
     void dispatchOnPanelLayout(View panel, PanelState state) {
-        if (mPanelSlideListener != null) {
-            mPanelSlideListener.onPanelLayout(panel, state);
+        synchronized (mPanelSlideListeners) {
+            for (PanelSlideListener l : mPanelSlideListeners) {
+                l.onPanelLayout(panel, state);
+            }
         }
         sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
     }
@@ -1394,7 +1404,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
     @Override
     protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
         boolean result;
-        final int save = canvas.save(Canvas.CLIP_SAVE_FLAG);
+        final int save = canvas.save();
 
         if (mSlideableView != null && mSlideableView != child) { // if main view
             // Clip against the slider; no sense drawing what will immediately be covered,

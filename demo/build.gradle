@@ -1,26 +1,26 @@
 apply plugin: 'com.android.application'
 
 android {
-  compileSdkVersion 26
-  buildToolsVersion "26.0.1"
+  compileSdkVersion 27
+  buildToolsVersion "27.0.3"
 
-    lintOptions {
-        abortOnError false
-    }
+  lintOptions {
+    abortOnError false
+  }
 
-    defaultConfig {
+  defaultConfig {
     minSdkVersion 14
-    targetSdkVersion 26
-    }
+    targetSdkVersion 27
+  }
 }
 
 repositories {
-    maven { url "https://jitpack.io" }
+  maven { url "https://jitpack.io" }
 }
 
 dependencies {
-  compile 'com.android.support:support-v4:26.0.2'
-  compile 'com.android.support:appcompat-v7:26.0.2'
-    compile 'com.android.support:design:23.1.1'
-    compile project(':library')
+  compile 'com.android.support:support-v4:27.1.0'
+  compile 'com.android.support:appcompat-v7:27.1.0'
+  compile 'com.android.support:design:27.1.0'
+  compile project(':library')
 }

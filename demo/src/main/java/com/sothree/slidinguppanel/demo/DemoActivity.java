@@ -15,21 +15,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Interpolator;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Arrays;
+import java.util.List;
 
 import com.sothree.slidinguppanel.FloatingActionButtonLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelSlideListener;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class DemoActivity extends AppCompatActivity {
     private static final String TAG = "DemoActivity";
@@ -107,12 +107,6 @@ public class DemoActivity extends AppCompatActivity {
             public void onPanelStateChanged(View panel, PanelState previousState, PanelState newState) {
                 Log.i(TAG, "onPanelStateChanged " + newState);
             }
-        });
-        mLayout.setFadeOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mLayout.setPanelState(PanelState.COLLAPSED);
-            }
 
             @Override
             public void onPanelHiddenExecuted(View panel, Interpolator interpolator, int duration) {
@@ -150,6 +144,12 @@ public class DemoActivity extends AppCompatActivity {
                 } else if (state == SlidingUpPanelLayout.PanelState.EXPANDED || state == SlidingUpPanelLayout.PanelState.ANCHORED){
                     titleBar.setBackgroundColor(Color.parseColor("#ffff9431"));
                 }
+            }
+        });
+        mLayout.setFadeOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mLayout.setPanelState(PanelState.COLLAPSED);
             }
         });
 
