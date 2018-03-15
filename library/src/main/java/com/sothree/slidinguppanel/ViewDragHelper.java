@@ -207,15 +207,15 @@ public class ViewDragHelper {
          * Called when the child view is no longer being actively dragged.
          * The fling velocity is also supplied, if relevant. The velocity values may
          * be clamped to system minimums or maximums.
-         * <p/>
-         * <p>Calling code may decide to fling or otherwise release the view to let it
+         * <p>
+         * Calling code may decide to fling or otherwise release the view to let it
          * settle into place. It should do so using {@link #settleCapturedViewAt(int, int)}
          * or {@link #flingCapturedView(int, int, int, int)}. If the Callback invokes
          * one of these methods, the ViewDragHelper will enter {@link #STATE_SETTLING}
          * and the view capture will not fully end until it comes to a complete stop.
          * If neither of these methods is invoked before <code>onViewReleased</code> returns,
          * the view will stop in place and the ViewDragHelper will return to
-         * {@link #STATE_IDLE}.</p>
+         * {@link #STATE_IDLE}.
          *
          * @param releasedChild The captured child view now being released
          * @param xvel          X velocity of the pointer as it left the screen in pixels per second.
@@ -301,13 +301,13 @@ public class ViewDragHelper {
          * Called when the user's input indicates that they want to capture the given child view
          * with the pointer indicated by pointerId. The callback should return true if the user
          * is permitted to drag the given view with the indicated pointer.
-         * <p/>
-         * <p>ViewDragHelper may call this method multiple times for the same view even if
+         * <p>
+         * ViewDragHelper may call this method multiple times for the same view even if
          * the view is already captured; this indicates that a new pointer is trying to take
-         * control of the view.</p>
-         * <p/>
-         * <p>If this method returns true, a call to {@link #onViewCaptured(android.view.View, int)}
-         * will follow if the capture is successful.</p>
+         * control of the view.
+         * <p>
+         * If this method returns true, a call to {@link #onViewCaptured(android.view.View, int)}
+         * will follow if the capture is successful.
          *
          * @param child     Child the user is attempting to capture
          * @param pointerId ID of the pointer attempting the capture
@@ -650,9 +650,9 @@ public class ViewDragHelper {
      * If this method returns true, the caller should invoke {@link #continueSettling(boolean)}
      * on each subsequent frame to continue the motion until it returns false. If this method
      * returns false there is no further work to do to complete the movement.
-     * <p/>
-     * <p>This operation does not count as a capture event, though {@link #getCapturedView()}
-     * will still report the sliding view while the slide is in progress.</p>
+     * <p>
+     * This operation does not count as a capture event, though {@link #getCapturedView()}
+     * will still report the sliding view while the slide is in progress.
      *
      * @param child     Child view to capture and animate
      * @param finalLeft Final left position of child
@@ -1020,12 +1020,12 @@ public class ViewDragHelper {
     /**
      * Check if the given pointer ID represents a pointer that is currently down (to the best
      * of the ViewDragHelper's knowledge).
-     * <p/>
-     * <p>The state used to report this information is populated by the methods
+     * <p>
+     * The state used to report this information is populated by the methods
      * {@link #shouldInterceptTouchEvent(android.view.MotionEvent)} or
      * {@link #processTouchEvent(android.view.MotionEvent)}. If one of these methods has not
      * been called for all relevant MotionEvents to track, the information reported
-     * by this method may be stale or incorrect.</p>
+     * by this method may be stale or incorrect.
      *
      * @param pointerId pointer ID to check; corresponds to IDs provided by MotionEvent
      * @return true if the pointer with the given ID is still down
@@ -1437,12 +1437,12 @@ public class ViewDragHelper {
     /**
      * Check if any pointer tracked in the current gesture has crossed
      * the required slop threshold.
-     * <p/>
-     * <p>This depends on internal state populated by
+     * <p>
+     * This depends on internal state populated by
      * {@link #shouldInterceptTouchEvent(android.view.MotionEvent)} or
      * {@link #processTouchEvent(android.view.MotionEvent)}. You should only rely on
      * the results of this method after all currently available touch data
-     * has been provided to one of these two methods.</p>
+     * has been provided to one of these two methods.
      *
      * @param directions Combination of direction flags, see {@link #DIRECTION_HORIZONTAL},
      *                   {@link #DIRECTION_VERTICAL}, {@link #DIRECTION_ALL}
@@ -1461,12 +1461,12 @@ public class ViewDragHelper {
     /**
      * Check if the specified pointer tracked in the current gesture has crossed
      * the required slop threshold.
-     * <p/>
-     * <p>This depends on internal state populated by
+     * <p>
+     * This depends on internal state populated by
      * {@link #shouldInterceptTouchEvent(android.view.MotionEvent)} or
      * {@link #processTouchEvent(android.view.MotionEvent)}. You should only rely on
      * the results of this method after all currently available touch data
-     * has been provided to one of these two methods.</p>
+     * has been provided to one of these two methods.
      *
      * @param directions Combination of direction flags, see {@link #DIRECTION_HORIZONTAL},
      *                   {@link #DIRECTION_VERTICAL}, {@link #DIRECTION_ALL}
