@@ -1,7 +1,7 @@
-[![JitPack](https://img.shields.io/github/release/TR4Android/AndroidSlidingUpPanel.svg?label=JitPack)]()
-[![Badge](http://www.libtastic.com/static/osbadges/30.png)](http://www.libtastic.com/technology/30/)
 Android Sliding Up Panel - Material Design
 ===========================================
+[![Download](https://api.bintray.com/packages/minyushov/android/slidinguppanel/images/download.svg)](https://bintray.com/minyushov/android/slidinguppanel/_latestVersion)
+
 This is a fork of Umano Sliding Up Panel that aims to bring some Material Design features:
 
 #### Floating Action Button
@@ -63,29 +63,17 @@ Added new listeners. Here's a list of the new ones along with a explanation:
 * `onPanelHiddenExecuted(View panel, Interpolator interpolator, int duration)`: This gets called whenever the application calls `setPanelState(PanelState.HIDDEN)` and the Sliding Panel isn't yet hidden. It provides interpolator and duration for any animated changes that could be made.
 * `onPanelShownExecuted(View panel, Interpolator interpolator, int duration)`: This gets called whenever the application calls `setPanelState(PanelState.COLLAPSED)` and the Sliding Panel isn't yet shown. It provides interpolator and duration for any animated changes that could be made.
 
-#### Importing the library
-As this fork of the library currently is not available on Maven Central, you'll for now have to do some extra steps to include this to your project. I hope to eventually get these changes back into the main library though.
+### Integration
 
-##### Download as Zip File
-
-1. Download the repository as a [.zip file](https://github.com/TR4Android/AndroidSlidingUpPanel/archive/master.zip)
-2. Unzip the .zip file you just downloaded
-3. Copy the `library` folder into your project folder (you can also rename it if you have to because of conflicts)
-4. Add `include ':library'` or `include ':theChangedLibraryName'` if you changed the folder name to your `settings.gradle` of your project folder
-5. Add `compile project(':library')` or `compile project(':theChangedLibraryName')` if you changed the folder name to your dependencies of the `build.gradle` file of your app module
-6. Now you should be able to work with this library
-
-##### Gradle dependency
-
-You can now use the library as a gradle dependency thanks to [JitPack](https://github.com/jitpack/jitpack.io). Just add the following to the `build.gradle` of your app module:
-```gradle
-repositories { 
-    maven { url "https://jitpack.io" }
+```groovy
+repositories {
+  maven { url "https://dl.bintray.com/minyushov/android" }
 }
+
 dependencies {
-    compile 'com.github.TR4Android:AndroidSlidingUpPanel:3.2.1'
+  implementation "com.minyushov.android:slidinguppanel:3.4.1"
 }
-```  
+```
 
 Android Sliding Up Panel - Orginal Readme
 ==========================================
@@ -95,27 +83,6 @@ This library provides a simple way to add a draggable sliding up panel (populari
 As seen in Umano Android App (now acquired by Dropbox):
 
 ![SlidingUpPanelLayout](https://raw.github.com/umano/AndroidSlidingUpPanelDemo/master/slidinguppanel.png)
-
-### Known Uses in Popular Apps
-
-* [Soundcloud] (https://play.google.com/store/apps/details?id=com.soundcloud.android)
-* [Dropbox Paper] (https://play.google.com/store/apps/details?id=com.dropbox.paper)
-* [Snaptee] (https://play.google.com/store/apps/details?id=co.snaptee.android)
-
-If you are using the library and you would like to have your app listed, simply let us know.
-
-### Importing the Library
-
-Simply add the following dependency to your `build.gradle` file to use the latest version:
-
-```groovy
-dependencies {
-    repositories {
-        mavenCentral()
-    }
-    compile 'com.sothree.slidinguppanel:library:3.4.0'
-}
-```
 
 ### Usage
 
@@ -255,17 +222,3 @@ If you have an awesome pull request, send it over!
 * 2.0.1 - Bug fixes. 
 * 2.0.0 - Cleaned up various public method calls. Added animated `showPanel`/`hidePanel` methods. 
 * 1.0.1 - Initial Release 
-
-### Licence
-
-> Licensed under the Apache License, Version 2.0 (the "License");
-> you may not use this work except in compliance with the License.
-> You may obtain a copy of the License in the LICENSE file, or at:
->
->  [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
->
-> Unless required by applicable law or agreed to in writing, software
-> distributed under the License is distributed on an "AS IS" BASIS,
-> WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-> See the License for the specific language governing permissions and
-> limitations under the License.
