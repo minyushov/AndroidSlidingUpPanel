@@ -71,7 +71,7 @@ repositories {
 }
 
 dependencies {
-  implementation "com.minyushov.android:slidinguppanel:3.4.1"
+  implementation "com.minyushov.android:slidinguppanel:3.4.2"
 }
 ```
 
@@ -192,6 +192,12 @@ If you have an awesome pull request, send it over!
 
 ### Changelog
 
+* 3.4.2
+  * Fix layout logic when panel is anchored.
+  * Update dependencies.
+* 3.4.1
+  * Merge latest changes from the original library.
+  * Update dependencies.
 * 3.4.0
   * Use the latest support library 26 and update the min version to 14.
   * Bug fixes
