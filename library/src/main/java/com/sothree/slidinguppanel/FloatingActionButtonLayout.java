@@ -38,11 +38,9 @@ public class FloatingActionButtonLayout extends ViewGroup {
     public FloatingActionButtonLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         if (attrs != null) {
-            TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.FloatingActionButtonLayout);
-            if (ta != null) {
-                mFabMode = FabMode.values()[ta.getInt(R.styleable.FloatingActionButtonLayout_umanoFabMode, DEFAULT_FAB_MODE.ordinal())];
-            }
-            ta.recycle();
+            TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.FloatingActionButtonLayout);
+            mFabMode = FabMode.values()[typedArray.getInt(R.styleable.FloatingActionButtonLayout_umanoFabMode, DEFAULT_FAB_MODE.ordinal())];
+            typedArray.recycle();
         }
     }
 
@@ -59,18 +57,18 @@ public class FloatingActionButtonLayout extends ViewGroup {
     }
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        if (h != oldh) {
+    protected void onSizeChanged(int width, int height, int oldWidth, int oldHeight) {
+        super.onSizeChanged(width, height, oldWidth, oldHeight);
+        if (height != oldHeight) {
             mFirstLayout = true;
         }
     }
 
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int childcount = getChildCount();
+        int count = getChildCount();
 
         // layout built for Sliding Up Panel Layout and Floating Action Button
-        if (childcount != 2) {
+        if (count != 2) {
             throw new IllegalStateException("FloatingActionButtonLayout must have exactly 2 children");
         }
 
@@ -87,8 +85,8 @@ public class FloatingActionButtonLayout extends ViewGroup {
     }
 
     @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        mSlidingUpPanelLayout.layout(l, t, r, b);
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        mSlidingUpPanelLayout.layout(left, top, right, bottom);
 
         if (mFirstLayout) {
             int expandedYSpace = getMeasuredHeight() - mSlidingUpPanelLayout.getChildAt(1).getMeasuredHeight();
@@ -103,27 +101,27 @@ public class FloatingActionButtonLayout extends ViewGroup {
             horizontalGravity = Gravity.getAbsoluteGravity(horizontalGravity, getLayoutDirection());
             switch (horizontalGravity) {
                 case Gravity.START:
-                    fabLeft = l + lp.leftMargin;
+                    fabLeft = left + lp.leftMargin;
                     fabRight = fabLeft + mFloatingActionButton.getMeasuredWidth();
                     break;
                 case Gravity.CENTER:
                 case Gravity.CENTER_HORIZONTAL:
-                    fabLeft = l + (r - l) / 2 - mFloatingActionButton.getMeasuredWidth() / 2;
+                    fabLeft = left + (right - left) / 2 - mFloatingActionButton.getMeasuredWidth() / 2;
                     fabRight = fabLeft + mFloatingActionButton.getMeasuredWidth();
                     break;
                 default:
-                    fabRight = r - lp.rightMargin;
+                    fabRight = right - lp.rightMargin;
                     fabLeft = fabRight - mFloatingActionButton.getMeasuredWidth();
             }
             // Then calculate Top and Bottom values
-            int initialfabBottom = b - lp.bottomMargin;
+            int initialfabBottom = bottom - lp.bottomMargin;
             int initialfabTop = initialfabBottom - mFloatingActionButton.getMeasuredHeight();
-            int collapsedfabBottom = b - mSlidingUpPanelLayout.getPanelHeight() + mFloatingActionButton.getMeasuredHeight() / 2;
+            int collapsedfabBottom = bottom - mSlidingUpPanelLayout.getPanelHeight() + mFloatingActionButton.getMeasuredHeight() / 2;
             int collapsedfabTop = collapsedfabBottom - mFloatingActionButton.getMeasuredHeight();
-            int expandedfabBottom = t + expandedYSpace + mSlidingUpPanelLayout.getPanelHeight() + mFloatingActionButton.getMeasuredHeight() / 2;
+            int expandedfabBottom = top + expandedYSpace + mSlidingUpPanelLayout.getPanelHeight() + mFloatingActionButton.getMeasuredHeight() / 2;
             int expandedfabTop = expandedfabBottom - mFloatingActionButton.getMeasuredHeight();
-            int fabBottom = 0;
-            int fabTop = 0;
+            int fabBottom;
+            int fabTop;
             switch (state) {
                 case HIDDEN:
                     fabBottom = initialfabBottom;
@@ -132,7 +130,7 @@ public class FloatingActionButtonLayout extends ViewGroup {
                 case ANCHORED:
                     float anchor = mSlidingUpPanelLayout.getAnchorPoint();
                     if (anchor != 1.0f) {
-                        fabBottom = t + Math.round((getMeasuredHeight() - mSlidingUpPanelLayout.getPanelHeight()) * (1f - anchor) + mFloatingActionButton.getMeasuredHeight() / 2);
+                        fabBottom = top + Math.round((getMeasuredHeight() - mSlidingUpPanelLayout.getPanelHeight()) * (1f - anchor) + mFloatingActionButton.getMeasuredHeight() / 2);
                         fabTop = fabBottom - mFloatingActionButton.getMeasuredHeight();
                         break;
                     }
@@ -208,22 +206,22 @@ public class FloatingActionButtonLayout extends ViewGroup {
     }
 
     @Override
-    protected ViewGroup.LayoutParams generateLayoutParams(ViewGroup.LayoutParams p) {
-        return new LayoutParams(p);
+    protected ViewGroup.LayoutParams generateLayoutParams(ViewGroup.LayoutParams params) {
+        return new LayoutParams(params);
     }
 
     @Override
-    protected boolean checkLayoutParams(ViewGroup.LayoutParams p) {
-        return p instanceof LayoutParams;
+    protected boolean checkLayoutParams(ViewGroup.LayoutParams params) {
+        return params instanceof LayoutParams;
     }
 
     public static class LayoutParams extends MarginLayoutParams {
         public int gravity = Gravity.RIGHT;
 
-        public LayoutParams(Context c, AttributeSet attrs) {
-            super(c, attrs);
+        public LayoutParams(Context context, AttributeSet attrs) {
+            super(context, attrs);
 
-            TypedArray a = c.obtainStyledAttributes(attrs, R.styleable.FloatingActionButtonLayout_LayoutParams);
+            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.FloatingActionButtonLayout_LayoutParams);
             gravity = a.getInt(R.styleable.FloatingActionButtonLayout_LayoutParams_android_layout_gravity, gravity);
             a.recycle();
         }

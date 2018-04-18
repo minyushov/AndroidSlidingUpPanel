@@ -245,28 +245,28 @@ public class SlidingUpPanelLayout extends ViewGroup {
          * @param panel       The child view that was moved
          * @param slideOffset The new offset of this sliding pane within its range, from 0-1
          */
-        public void onPanelSlide(View panel, float slideOffset);
+        void onPanelSlide(View panel, float slideOffset);
 
         /**
          * Called when a sliding panel state changes
          *
          * @param panel The child view that was slid to an collapsed position
          */
-        public void onPanelStateChanged(View panel, PanelState previousState, PanelState newState);
+        void onPanelStateChanged(View panel, PanelState previousState, PanelState newState);
 
         /**
          * Called when a sliding panel gets hidden via hidePanel.
          *
          * @param panel The child view that was hidden
          */
-        public void onPanelHiddenExecuted(View panel, Interpolator interpolator, int duration);
+        void onPanelHiddenExecuted(View panel, Interpolator interpolator, int duration);
 
         /**
          * Called when a sliding panel gets shown via showPanel.
          *
          * @param panel The child view that was shown
          */
-        public void onPanelShownExecuted(View panel, Interpolator interpolator, int duration);
+        void onPanelShownExecuted(View panel, Interpolator interpolator, int duration);
 
         /**
          * Called when a sliding panel touches the top.
@@ -274,7 +274,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
          * @param panel   The child view that was shown
          * @param reached Whether the panel has just reached the top position (true) or left it (false)
          */
-        public void onPanelExpandedStateY(View panel, boolean reached);
+        void onPanelExpandedStateY(View panel, boolean reached);
 
         /**
          * Called when a sliding panel touches the bottom.
@@ -282,7 +282,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
          * @param panel   The child view that was shown
          * @param reached Whether the panel has just reached the bottom position (true) or left it (false)
          */
-        public void onPanelCollapsedStateY(View panel, boolean reached);
+        void onPanelCollapsedStateY(View panel, boolean reached);
 
         /**
          * Called when a sliding panel touches the top.
@@ -290,7 +290,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
          * @param panel The child view that was shown
          * @param state The panel state that was used for layout
          */
-        public void onPanelLayout(View panel, PanelState state);
+        void onPanelLayout(View panel, PanelState state);
     }
 
     /**
@@ -491,7 +491,6 @@ public class SlidingUpPanelLayout extends ViewGroup {
         if (getPanelState() == PanelState.COLLAPSED) {
             smoothToBottom();
             invalidate();
-            return;
         }
     }
 
