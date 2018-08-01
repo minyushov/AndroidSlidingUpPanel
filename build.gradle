@@ -1,5 +1,10 @@
 buildscript {
-  apply from: "versions.gradle"
+  ext {
+    androidMinSdkVersion = 17
+    androidCompileSdkVersion = 28
+    androidTargetSdkVersion = 28
+    androidSupportLibraryVersion = "28.0.0-beta01"
+  }
 
   repositories {
     jcenter()
@@ -8,8 +13,8 @@ buildscript {
   }
 
   dependencies {
-    classpath "com.android.tools.build:gradle:3.1.1"
-    classpath "com.minyushov.gradle:bintray:1.0.4"
+    classpath "com.android.tools.build:gradle:3.1.3"
+    classpath "com.minyushov.gradle:bintray:1.1.0"
   }
 }
 
