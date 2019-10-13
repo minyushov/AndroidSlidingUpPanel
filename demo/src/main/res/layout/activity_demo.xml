@@ -27,7 +27,7 @@
       android:layout_height="match_parent"
       android:orientation="vertical">
 
-      <android.support.v7.widget.Toolbar
+      <androidx.appcompat.widget.Toolbar
         android:id="@+id/main_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -69,14 +69,14 @@
           android:layout_height="match_parent"
           android:layout_weight="1"
           android:gravity="center_vertical"
-          android:paddingLeft="10dp"
+          android:paddingEnd="10dp"
           android:textSize="14sp" />
 
         <Button
           android:id="@+id/follow"
           android:layout_width="wrap_content"
           android:layout_height="match_parent"
-          android:gravity="center_vertical|right"
+          android:gravity="center_vertical|end"
           android:paddingLeft="10dp"
           android:paddingRight="10dp"
           android:textSize="14sp" />
@@ -91,14 +91,15 @@
     </LinearLayout>
   </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
-  <android.support.design.widget.FloatingActionButton
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/fab"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="bottom|right"
-    android:layout_marginRight="16dp"
+    android:layout_gravity="bottom|end"
+    android:layout_marginEnd="16dp"
     android:layout_marginBottom="16dp"
-    android:src="@android:drawable/ic_input_add"
-    android:visibility="gone" />
+    android:visibility="gone"
+    app:srcCompat="@drawable/icon_add_24"
+    app:tint="@android:color/white" />
 
 </com.sothree.slidinguppanel.FloatingActionButtonLayout>
