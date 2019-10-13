@@ -1,28 +1,29 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:sothree="http://schemas.android.com/apk/res-auto">
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/action_toggle_visibility"
-        android:orderInCategory="100"
-        sothree:showAsAction="never"
-        android:title="@string/action_gone"/>
+  <item
+    android:id="@+id/action_toggle_visibility"
+    android:orderInCategory="100"
+    android:title="@string/action_gone"
+    app:showAsAction="never" />
 
-    <item
-        android:id="@+id/action_toggle_attach"
-        android:orderInCategory="100"
-        sothree:showAsAction="never"
-        android:title="@string/action_detach"/>
+  <item
+    android:id="@+id/action_toggle_attach"
+    android:orderInCategory="100"
+    android:title="@string/action_detach"
+    app:showAsAction="never" />
 
-    <item
-        android:id="@+id/action_toggle"
-        android:orderInCategory="100"
-        sothree:showAsAction="never"
-        android:title="@string/action_hide"/>
-    
-    <item
-        android:id="@+id/action_anchor"
-        android:orderInCategory="200"
-        sothree:showAsAction="never"
-        android:title="@string/action_anchor_enable"/>    
+  <item
+    android:id="@+id/action_toggle"
+    android:orderInCategory="100"
+    android:title="@string/action_hide"
+    app:showAsAction="never" />
+
+  <item
+    android:id="@+id/action_anchor"
+    android:orderInCategory="200"
+    android:title="@string/action_anchor_enable"
+    app:showAsAction="never" />
 
 </menu>
