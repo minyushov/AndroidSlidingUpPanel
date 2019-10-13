@@ -10,7 +10,9 @@ android {
   }
 
   libraryVariants.all {
-    it.generateBuildConfig.enabled = false
+    it.generateBuildConfigProvider.configure {
+      it.enabled = false
+    }
   }
 }
 
@@ -23,7 +25,7 @@ bintrayUpload {
   repo = "android"
   groupId = "com.minyushov.android"
   artifactId = "slidinguppanel"
-  version = "3.4.3"
+  version = "3.5.0"
   vcsUrl = "https://github.com/minyushov/AndroidSlidingUpPanel.git"
   license = "Apache-2.0"
   docsSettings {
