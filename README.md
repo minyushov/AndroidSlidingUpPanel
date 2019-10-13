@@ -1,67 +1,9 @@
-Android Sliding Up Panel - Material Design
+Android Sliding Up Panel
 ===========================================
 [![Download](https://api.bintray.com/packages/minyushov/android/slidinguppanel/images/download.svg)](https://bintray.com/minyushov/android/slidinguppanel/_latestVersion)
 
-This is a fork of Umano Sliding Up Panel that aims to bring some Material Design features:
+This library provides a simple way to add a draggable sliding up panel (popularized by Google Music and Google Maps) to your Android application.
 
-#### Floating Action Button
-
-Added the ability to attach a Floating Action Button to the Sliding Up Panel (as seen in the Google Maps Material Design version). To include the Floating Action Button to your layout change it to this:
-```xml
-<com.sothree.slidinguppanel.FloatingActionButtonLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:sothree="http://schemas.android.com/apk/res-auto"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    sothree:umanoFabMode=["leave_behind" | "circular_reveal" | "fade"]
-    tools:context=".DemoActivity">
-    
-    <!-- SLIDING UP PANEL -->
-    <com.sothree.slidinguppanel.SlidingUpPanelLayout
-        android:id="@+id/sliding_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom"
-        sothree:umanoDragView="@+id/dragView"
-        sothree:umanoPanelHeight="68dp"
-        sothree:umanoParalaxOffset="100dp"
-        sothree:umanoShadowHeight="4dp">
-        <!-- The normal content of the Sliding Up Panel (see Original Readme)-->
-    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
-
-    <!-- FLOATING ACTION BUTTON -->
-    <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
-        android:src="@android:drawable/ic_input_add"
-        fab:fab_colorNormal="@color/primary"
-        fab:fab_colorPressed="@color/primary_pressed"
-        fab:fab_colorRipple="@color/ripple" />
-</com.sothree.slidinguppanel.FloatingActionButtonLayout>
-```
-(The Floating Action Button used here and in the demo is [Oleksandr Melnykov's Floating Action Button](https://github.com/makovkastar/FloatingActionButton))
-
-You can choose the kind of animation you want for the Floating Action Button when dragging the panel by using the `umanoFabMode` attribute:
-* `leave_behind`: This gradually moves the Floating Action Button from the top of the panel header in the collapsed state to the bottom of the header in the expanded state.
-* `circular_reveal`: This keeps the Floating Action button on top of the panel header and show or hides the Floating Action Button based on a threshold value of how far the panel has been dragged to the top using a circular reveal animation (see the Google Maps Floating Action Button). Thanks to [@flyingtoaster0](https://github.com/flyingtoaster0) for contributing code!
-* `fade`: This animates the alpha value of the Floating Action Button based on how far the panel has been dragged to the top.
-
-There also are some new methods related to the Floating Action Button:
-* `setFloatingActionButtonVisibility(int visibility)`: This is a replacment method for the standard `setVisibility()` which doesn't work as intended as this library handles the visibility while sliding the panel. It takes the normal `View.VISIBLE`, `View.INVISIBLE` or `View.GONE` as input. Use this one instead of the default one whenever you want to change the visibility of the Floating Action Button.
-* `setFloatingActionButtonAttached(boolean attached)`: This can be used to attach or detach the Floating Action Button from the sliding up panel. When `attached` is `true` the library will move the Floating Action Button along, when it is `false` the Floating Action Button will remain at its' position. **Note:** it is currently your responsibility that the transition from detached to attached mode doesn't result in a position jump.
-
-#### New Listeners
-Added new listeners. Here's a list of the new ones along with a explanation:
-* `onPanelCollapsedStateY(View panel, boolean reached)`: This gets called whenever the user reaches or leaves the collapsed state, even while dragging. If boolean reached is true, the panel has just reached the collapsed postion, if it is false, it has just left the collapsed position.
-* `onPanelExpandedStateY(View panel, boolean reached)`: This gets called whenever the user reaches or leaves the expanded state, even while dragging. If boolean reached is true, the panel has just reached the expanded postion, if it is false, it has just left the expanded position.
-* `onPanelLayout(View panel, PanelState state)`: This gets called whenever the Sliding Up Panel gets laid out freshly. This happens especially when the screen orientation or size is changed. It can be used to apply changes that should have been done via `onPanelCollapsedStateY(View panel, boolean reached)` or `onPanelExpandedStateY(View panel, boolean reached)` but have been lost due to orientation or size change. This probably won't be needed when `android:configChanges="orientation|screenSize"` is set in your Manifest.
-* `onPanelHiddenExecuted(View panel, Interpolator interpolator, int duration)`: This gets called whenever the application calls `setPanelState(PanelState.HIDDEN)` and the Sliding Panel isn't yet hidden. It provides interpolator and duration for any animated changes that could be made.
-* `onPanelShownExecuted(View panel, Interpolator interpolator, int duration)`: This gets called whenever the application calls `setPanelState(PanelState.COLLAPSED)` and the Sliding Panel isn't yet shown. It provides interpolator and duration for any animated changes that could be made.
 
 ### Integration
 
@@ -74,15 +16,6 @@ dependencies {
   implementation "com.minyushov.android:slidinguppanel:3.4.2"
 }
 ```
-
-Android Sliding Up Panel - Orginal Readme
-==========================================
-
-This library provides a simple way to add a draggable sliding up panel (popularized by Google Music and Google Maps) to your Android application.
-
-As seen in Umano Android App (now acquired by Dropbox):
-
-![SlidingUpPanelLayout](https://raw.github.com/umano/AndroidSlidingUpPanelDemo/master/slidinguppanel.png)
 
 ### Usage
 
@@ -170,25 +103,55 @@ public class NestedScrollableViewHelper extends ScrollableViewHelper {
 
 Once you define your helper, you can set it using `setScrollableViewHelper` on the sliding panel.
 
-### Implementation
+#### Floating Action Button
 
-This library was initially based on the opened-sourced [SlidingPaneLayout](http://developer.android.com/reference/android/support/v4/widget/SlidingPaneLayout.html) component from the r13 of the Android Support Library. Thanks Android team!
+To include the Floating Action Button to your layout change it to this:
+```xml
+<com.sothree.slidinguppanel.FloatingActionButtonLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:umanoFabMode=["leave_behind" | "circular_reveal" | "fade"]
+    tools:context=".DemoActivity">
 
-### Requirements
+    <!-- SLIDING UP PANEL -->
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        android:id="@+id/sliding_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        app:umanoDragView="@+id/dragView"
+        app:umanoPanelHeight="68dp"
+        app:umanoParalaxOffset="100dp"
+        app:umanoShadowHeight="4dp">
+        <!-- The normal content of the Sliding Up Panel -->
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
-Tested on Android 2.2+
+    <!-- FLOATING ACTION BUTTON -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:srcCompat="@drawable/icon_add_24"
+        app:tint="@android:color/white" />
 
-### Other Contributors
+</com.sothree.slidinguppanel.FloatingActionButtonLayout>
+```
 
-* Nov 23, 15 - [@kiyeonk](https://github.com/kiyeonk) - umanoScrollInterpolator support
-* Jan 21, 14 - ChaYoung You ([@yous](https://github.com/yous)) - Slide from the top support
-* Aug 20, 13 - [@gipi](https://github.com/gipi) - Android Studio Support
-* Jul 24, 13 - Philip Schiffer ([@hameno](https://github.com/hameno)) - Maven Support
-* Oct 20, 13 - Irina Preșa ([@iriina](https://github.com/iriina)) - Anchor Support
-* Dec 1, 13 - ([@youchy](https://github.com/youchy)) - XML Attributes Support
-* Dec 22, 13 - Vladimir Mironov ([@MironovNsk](https://github.com/nsk-mironov)) - Custom Expanded Panel Height
+You can choose the kind of animation you want for the Floating Action Button when dragging the panel by using the `umanoFabMode` attribute:
+* `leave_behind`: This gradually moves the Floating Action Button from the top of the panel header in the collapsed state to the bottom of the header in the expanded state.
+* `circular_reveal`: This keeps the Floating Action button on top of the panel header and show or hides the Floating Action Button based on a threshold value of how far the panel has been dragged to the top using a circular reveal animation (see the Google Maps Floating Action Button). Thanks to [@flyingtoaster0](https://github.com/flyingtoaster0) for contributing code!
+* `fade`: This animates the alpha value of the Floating Action Button based on how far the panel has been dragged to the top.
 
-If you have an awesome pull request, send it over!
+There also are some new methods related to the Floating Action Button:
+* `setFloatingActionButtonVisibility(int visibility)`: This is a replacment method for the standard `setVisibility()` which doesn't work as intended as this library handles the visibility while sliding the panel. It takes the normal `View.VISIBLE`, `View.INVISIBLE` or `View.GONE` as input. Use this one instead of the default one whenever you want to change the visibility of the Floating Action Button.
+* `setFloatingActionButtonAttached(boolean attached)`: This can be used to attach or detach the Floating Action Button from the sliding up panel. When `attached` is `true` the library will move the Floating Action Button along, when it is `false` the Floating Action Button will remain at its' position. **Note:** it is currently your responsibility that the transition from detached to attached mode doesn't result in a position jump.
+
 
 ### Changelog
 
