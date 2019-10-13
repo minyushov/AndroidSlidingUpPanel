@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-  implementation "com.minyushov.android:slidinguppanel:3.4.2"
+  implementation "com.minyushov.android:slidinguppanel:x.x.x"
 }
 ```
 
