@@ -8,24 +8,18 @@ android {
     minSdkVersion androidMinSdkVersion
     targetSdkVersion androidTargetSdkVersion
   }
-
-  libraryVariants.all {
-    it.generateBuildConfigProvider.configure {
-      it.enabled = false
-    }
-  }
 }
 
 dependencies {
-  implementation "androidx.recyclerview:recyclerview:1.1.0-beta05"
+  implementation "androidx.recyclerview:recyclerview:1.2.0-alpha05"
 }
 
-bintrayUpload {
+bintray {
   dryRun = false
   repo = "android"
   groupId = "com.minyushov.android"
   artifactId = "slidinguppanel"
-  version = "3.5.0"
+  version = "3.6.0"
   vcsUrl = "https://github.com/minyushov/AndroidSlidingUpPanel.git"
   license = "Apache-2.0"
   docsSettings {
