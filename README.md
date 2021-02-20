@@ -1,6 +1,6 @@
 Android Sliding Up Panel
 ===========================================
-[![Download](https://api.bintray.com/packages/minyushov/android/slidinguppanel/images/download.svg)](https://bintray.com/minyushov/android/slidinguppanel/_latestVersion)
+![Maven Central](https://img.shields.io/maven-central/v/io.github.minyushov/sliding-panel)
 
 This library provides a simple way to add a draggable sliding up panel (popularized by Google Music and Google Maps) to your Android application.
 
@@ -8,12 +8,8 @@ This library provides a simple way to add a draggable sliding up panel (populari
 ### Integration
 
 ```groovy
-repositories {
-  maven { url "https://dl.bintray.com/minyushov/android" }
-}
-
 dependencies {
-  implementation "com.minyushov.android:slidinguppanel:x.x.x"
+  implementation "io.github.minyushov:sliding-panel:$version"
 }
 ```
 
